@@ -2,11 +2,11 @@ import { DataSource } from 'typeorm';
 
 export const myDataSource = new DataSource({
   type: 'mysql',
-  host: 'gridlog-db-sql.chkylk9p7xxu.us-west-2.rds.amazonaws.com',
+  host: process.env.SQL_HOST,
   port: 3306,
-  username: 'gridlog',
-  password: 'gridlogdb1999',
-  database: 'gdb',
+  username: process.env.SQL_USERNAME,
+  password: process.env.SQL_PASSWORD,
+  database: process.env.SQL_DB,
   entities: ['src/entity/*.js'],
   logging: true,
   synchronize: true,

@@ -1,4 +1,4 @@
-import UserModel from '../entity/user';
+import { User } from '../entity/user';
 import firebaseAdmin from '../services/firebase';
 
 export class UserDataManager {
@@ -21,7 +21,7 @@ export class UserDataManager {
 
   update = async (field: string, value: string, uid: string) => {
     try {
-      const user = await UserModel.findOne({ uid }).lean();
+      const user = await User.findOneBy({ uid });
       if (!user || user.uid !== uid) {
         return {
           success: false,

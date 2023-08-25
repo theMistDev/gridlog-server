@@ -1,0 +1,20 @@
+node_modules
+.env
+serviceAccountKey.json
+.DS_Store
+# Compiled JavaScript files
+lib/**/*.js
+lib/**/*.js.map
+build/**/*.js
+
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+app.yaml

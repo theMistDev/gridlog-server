@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Server for Gridlog Web App.",
   "main": "src/app/server.ts",
-  "engines": {
-    "node": "^18.16.0"
-  },
   "scripts": {
     "build": "tsc",
     "dev": "nodemon src/app/index.ts | bunyan -o short",

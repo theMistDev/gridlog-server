@@ -1,5 +1,6 @@
 import { User } from '../entity/user';
 import firebaseAdmin from '../services/firebase';
+import myDataSource from '../db/datasource';
 
 export class AuthManager {
   private _generateJWT = async (uid: string) => {
@@ -25,11 +26,11 @@ export class AuthManager {
     emailVerified: boolean
   ) => {
     try {
-      const loggedUser = await User.findOneBy({ uid });
+      const loggedUser = await User.findOneBy({uid: uid})
       if (!loggedUser || loggedUser.uid !== uid) {
         return {
           success: false,
-          message: 'unauthorized Staff',
+          message: 'unauthorized User',
           data: {},
         };
       }
@@ -37,8 +38,8 @@ export class AuthManager {
       if (uid === validation.uid) {
         //email verification
         if (loggedUser.emailVerified !== emailVerified) {
-          loggedUser.emailVerified = emailVerified;
-          await loggedUser.save();
+          loggedUser.emailVerified = emailVerified
+         const results =  await loggedUser.save()
 
           return {
             success: true,
@@ -71,11 +72,10 @@ export class AuthManager {
     email: string,
     firstName: string,
     lastName: string,
-    department: string,
-    level: string
+    password: string
   ) => {
     try {
-      if (!email || !firstName || !lastName || !department || !level) {
+      if (!email || !firstName || !lastName || !password) {
         return {
           success: false,
           message: 'Cannot validate user details',
@@ -85,13 +85,14 @@ export class AuthManager {
       const userRecord = await firebaseAdmin.auth().createUser({
         email: email,
         displayName: `${firstName} ${lastName}`,
-        password: 'Password',
+        password: password,
         emailVerified: false,
       });
 
       if (!userRecord) {
         //handle errors
       }
+
       const newUser = new User();
       newUser.uid = userRecord.uid;
       newUser.firstName = firstName;
@@ -99,13 +100,14 @@ export class AuthManager {
       newUser.email = email;
       newUser.emailVerified = userRecord.emailVerified;
       newUser.disabled = userRecord.disabled;
-      await newUser.save();
+
+      const results = await newUser.save();
 
       const jwtData = await this._generateJWT(userRecord.uid);
       return {
         success: jwtData.success,
         message: jwtData.message,
-        data: jwtData.success ? { staff: newUser } : {},
+        data: jwtData.success ? { user: newUser } : {},
       };
     } catch (error) {
       return {

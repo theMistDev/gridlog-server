@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import pathLogger from '../middleware/pathLogger';
 import logger from '../services/log';
-import { myDataSource } from '../db/datasource';
+import  myDataSource  from '../db/datasource';
 
 dotenv.config();
 
@@ -53,15 +53,10 @@ app.use(pathLogger);
 //app.use('/v1', apiRoutes);
 app.use(apiRoutes);
 
-// Initialize database connection and start listening for requests
-myDataSource
-  .initialize()
-  .then(() => {
-    console.log('Data Source has been initialized!');
-  })
-  .catch((err) => {
-    console.error('Error during Data Source initialization:', err);
-  });
+myDataSource.isInitialized
+
+// Initialize database connection and start listening for requests.
+
 
 const port = process.env.APP_PORT;
 const publicAppToken = process.env.APP_PUBLIC_APP_TOKEN;

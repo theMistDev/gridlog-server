@@ -21,13 +21,12 @@ export class AuthController extends BaseController {
 
   registerController = async (req: Request, res: Response) => {
     try {
-      const { email, firstName, lastName, department, level } = req.body;
+      const { email, firstName, lastName, password } = req.body;
       const data = await this.authManager.registerOnServer(
         email,
         firstName,
         lastName,
-        department,
-        level
+        password
       );
       this.sendResponse(res, data);
     } catch (error) {

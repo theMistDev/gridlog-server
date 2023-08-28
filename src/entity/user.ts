@@ -22,12 +22,4 @@ export class User extends BaseEntity {
 
   @Column()
   disabled!: boolean;
-
-  @Column()
-  image!: string;
-
-  @Column()
-  phone!: string;
 }
-
-

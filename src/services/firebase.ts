@@ -42,6 +42,7 @@ class FB {
   };
 
   app = () => {
+    console.log(this._config)
     return admin.initializeApp({
       credential: admin.credential.cert(this._getFirebaseConfig()),
     });

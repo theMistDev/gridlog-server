@@ -7,7 +7,6 @@
     "build": "tsc",
     "dev": "nodemon src/app/index.ts | bunyan -o short",
     "start": "node build/app/index.js | bunyan -o short",
-    "deploy": "gcloud app deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

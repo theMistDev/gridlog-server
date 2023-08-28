@@ -7,8 +7,8 @@ const router = Router();
 const auth = new AuthController();
 
 //AUTH
-router.route('/admin/auth/login').post(jwtChecker, auth.loginController);
-router.route('/admin/auth/register').post(jwtChecker, auth.registerController);
+router.route('/auth/login').post(jwtChecker, auth.loginController);
+router.route('/auth/register').post( auth.registerController);
 
 //USERDATA
 router.route('/usersData/userData/:uid/update').put(jwtChecker);
